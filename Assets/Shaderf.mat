@@ -33,11 +33,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _TextureBreathingSpeed: 8
-    - _TextureWaveSpeed: 0.15
+    - _TextureBreathingSpeed: 2
+    - _TextureBreathingStrength: 1
+    - _TextureWaveSpeed: 0.2
+    - _TextureWaveStrength: 0.2
     - _Transparency: 0.93
-    - _VectorDisplacementModifier: -7
-    - _WaveLength: 0.005
+    - _VectorDisplacementModifier: -11
+    - _WaveLength: 0.05
     m_Colors:
     - _ColorA: {r: 0, g: 0.19298647, b: 0.35686275, a: 1}
     - _ColorB: {r: 0.0047169924, g: 0.9059184, b: 1, a: 1}

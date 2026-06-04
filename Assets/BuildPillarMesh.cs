@@ -3,11 +3,13 @@ using UnityEngine;
 public class BuildPillarMesh : MonoBehaviour
 {
     MeshBuilder builder;
-    [SerializeField] Transform rootPosition;
-    [SerializeField] private float pillarHeight = 1;
+    
+    
     [SerializeField] private float sectionHeight = 1;
+    [SerializeField] private float sectionLength = 1;
+    [SerializeField] private float sectionWidth = 1;
     [SerializeField] private float rowCount = 1;
-    [SerializeField] private float InversePoint = 1;
+    
     [SerializeField] private Vector3 rowOffstep = Vector3.right; 
 
     
@@ -17,7 +19,7 @@ public class BuildPillarMesh : MonoBehaviour
     void Start()
     {
         builder = new MeshBuilder();
-        CreateCube1(rootPosition.position);
+        CreateCube1(transform.position.normalized);
         GetComponent<MeshFilter>().mesh = builder.CreateMesh(true);
     }
 
@@ -29,7 +31,7 @@ public class BuildPillarMesh : MonoBehaviour
 
     void CreatePillar()
     {
-        float currentFloorHeight = rootPosition.position.y;
+        float currentFloorHeight = transform.position.normalized.y;
 
     }
 
@@ -42,48 +44,48 @@ public class BuildPillarMesh : MonoBehaviour
             //-----------------------VERTECIES--------------------
             //bottom Vertecies
            
-            int v1 = builder.AddVertex(rootPosition + new Vector3(1, 0, 1), new Vector2(0, 0));
-            int v1_2 = builder.AddVertex(rootPosition + new Vector3(1, 0, 1), new Vector2(0, 0));
-            int v1_3 = builder.AddVertex(rootPosition + new Vector3(1, 0, 1), new Vector2(1, 0)); // _2 = duplicate
+            int v1 = builder.AddVertex(rootPosition + new Vector3(sectionLength, 0, sectionWidth), new Vector2(0, 0));
+            int v1_2 = builder.AddVertex(rootPosition + new Vector3(sectionLength, 0, sectionWidth), new Vector2(0, 0));
+            int v1_3 = builder.AddVertex(rootPosition + new Vector3(sectionLength, 0, sectionWidth), new Vector2(1, 0)); // _2 = duplicate
 
-            int v2 = builder.AddVertex(rootPosition + new Vector3(1, 0, -1), new Vector2(1, 0));
-            int v2_2 = builder.AddVertex(rootPosition + new Vector3(1, 0, -1), new Vector2(1, 0));
-            int v2_3 = builder.AddVertex(rootPosition + new Vector3(1, 0, -1), new Vector2(0, 0));
+            int v2 = builder.AddVertex(rootPosition + new Vector3(sectionLength, 0, -sectionWidth), new Vector2(1, 0));
+            int v2_2 = builder.AddVertex(rootPosition + new Vector3(sectionLength, 0, -sectionWidth), new Vector2(1, 0));
+            int v2_3 = builder.AddVertex(rootPosition + new Vector3(sectionLength, 0, -sectionWidth), new Vector2(0, 0));
 
 
-            int v3 = builder.AddVertex(rootPosition + new Vector3(-1, 0, 1), new Vector2(0, 1));
-            int v3_2 = builder.AddVertex(rootPosition + new Vector3(-1, 0, 1), new Vector2(1, 0));
-            int v3_3 = builder.AddVertex(rootPosition + new Vector3(-1, 0, 1), new Vector2(0, 0));
-            int v3_4 = builder.AddVertex(rootPosition + new Vector3(-1, 0, 1), new Vector2(0, 0));
+            int v3 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, 0, sectionWidth), new Vector2(0, 1));
+            int v3_2 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, 0, sectionWidth), new Vector2(1, 0));
+            int v3_3 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, 0, sectionWidth), new Vector2(0, 0));
+            int v3_4 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, 0, sectionWidth), new Vector2(0, 0));
 
-            int v4 = builder.AddVertex(rootPosition + new Vector3(-1, 0, -1), new Vector2(1, 1));
-            int v4_2 = builder.AddVertex(rootPosition + new Vector3(-1, 0, -1), new Vector2(1, 1));
-            int v4_3 = builder.AddVertex(rootPosition + new Vector3(-1, 0, -1), new Vector2(0, 0));
-            int v4_4 = builder.AddVertex(rootPosition + new Vector3(-1, 0, -1), new Vector2(1, 0));
+            int v4 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, 0, -sectionWidth), new Vector2(1, 1));
+            int v4_2 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, 0, -sectionWidth), new Vector2(1, 1));
+            int v4_3 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, 0, -sectionWidth), new Vector2(0, 0));
+            int v4_4 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, 0, -sectionWidth), new Vector2(1, 0));
 
             //front vertecies
-            int v5 = builder.AddVertex(rootPosition + new Vector3(-1, sectionHeight, 1), new Vector2(1, 1));
-            int v5_2 = builder.AddVertex(rootPosition + new Vector3(-1, sectionHeight, 1), new Vector2(1, 1));
-            int v5_3 = builder.AddVertex(rootPosition + new Vector3(-1, sectionHeight, 1), new Vector2(0, 1));
-            int v6 = builder.AddVertex(rootPosition + new Vector3(1, sectionHeight, 1), new Vector2(0, 1));
+            int v5 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, sectionHeight, sectionWidth), new Vector2(1, 1));
+            int v5_2 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, sectionHeight, sectionWidth), new Vector2(1, 1));
+            int v5_3 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, sectionHeight, sectionWidth), new Vector2(0, 1));
+            int v6 = builder.AddVertex(rootPosition + new Vector3(sectionLength, sectionHeight, sectionWidth), new Vector2(0, 1));
 
             //back vertecies
-            int v7 = builder.AddVertex(rootPosition + new Vector3(-1, sectionHeight, -1), new Vector2(0, 1));
-            int v7_2 = builder.AddVertex(rootPosition + new Vector3(-1, sectionHeight, -1), new Vector2(0, 1));
-            int v8 = builder.AddVertex(rootPosition + new Vector3(1, sectionHeight, -1), new Vector2(1, 1));
-            int v8_2 = builder.AddVertex(rootPosition + new Vector3(1, sectionHeight, -1), new Vector2(1, 0));
+            int v7 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, sectionHeight, -sectionWidth), new Vector2(0, 1));
+            int v7_2 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, sectionHeight, -sectionWidth), new Vector2(0, 1));
+            int v8 = builder.AddVertex(rootPosition + new Vector3(sectionLength, sectionHeight, -sectionWidth), new Vector2(1, 1));
+            int v8_2 = builder.AddVertex(rootPosition + new Vector3(sectionLength, sectionHeight, -sectionWidth), new Vector2(1, 0));
 
             //right vertecies
-            int v9 = builder.AddVertex(rootPosition + new Vector3(1, sectionHeight, 1), new Vector2(1, 1));
-            int v9_2 = builder.AddVertex(rootPosition + new Vector3(1, sectionHeight, 1), new Vector2(1, 1));
-            int v9_3 = builder.AddVertex(rootPosition + new Vector3(1, sectionHeight, 1), new Vector2(1, 1));
-            int v10 = builder.AddVertex(rootPosition + new Vector3(1, sectionHeight, -1), new Vector2(0, 1));
+            int v9 = builder.AddVertex(rootPosition + new Vector3(sectionLength, sectionHeight, sectionWidth), new Vector2(1, 1));
+            int v9_2 = builder.AddVertex(rootPosition + new Vector3(sectionLength, sectionHeight, sectionWidth), new Vector2(1, 1));
+            int v9_3 = builder.AddVertex(rootPosition + new Vector3(sectionLength, sectionHeight, sectionWidth), new Vector2(1, 1));
+            int v10 = builder.AddVertex(rootPosition + new Vector3(sectionLength, sectionHeight, -sectionWidth), new Vector2(0, 1));
 
             //left vertecies
-            int v11 = builder.AddVertex(rootPosition + new Vector3(-1, sectionHeight, -1), new Vector2(1, 1));
-            int v11_2 = builder.AddVertex(rootPosition + new Vector3(-1, sectionHeight, -1), new Vector2(1, 1));
-            int v11_3 = builder.AddVertex(rootPosition + new Vector3(-1, sectionHeight, -1), new Vector2(0, 0));
-            int v12 = builder.AddVertex(rootPosition + new Vector3(-1, sectionHeight, 1), new Vector2(0, 1));
+            int v11 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, sectionHeight, -sectionWidth), new Vector2(1, 1));
+            int v11_2 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, sectionHeight, -sectionWidth), new Vector2(1, 1));
+            int v11_3 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, sectionHeight, -sectionWidth), new Vector2(0, 0));
+            int v12 = builder.AddVertex(rootPosition + new Vector3(-sectionLength, sectionHeight, sectionWidth), new Vector2(0, 1));
 
             //--------------------FACES-------------------------
             //bottom face
