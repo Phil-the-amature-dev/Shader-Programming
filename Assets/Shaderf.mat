@@ -33,15 +33,26 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _GlobalIlluminationStrength: 0.2
+    - _LightColorStrength: 0.53
+    - _MaterialSmoothness: 256
+    - _ReflectionColorStrength: 4
+    - _SpecularLightStrength: 0.2
     - _TextureBreathingSpeed: 2
     - _TextureBreathingStrength: 1
     - _TextureWaveSpeed: 0.2
     - _TextureWaveStrength: 0.2
-    - _Transparency: 0.93
-    - _VectorDisplacementModifier: -11
+    - _Transparency: 0.8
+    - _VectorDisplacementModifier: -160
     - _WaveLength: 0.05
     m_Colors:
-    - _ColorA: {r: 0, g: 0.19298647, b: 0.35686275, a: 1}
-    - _ColorB: {r: 0.0047169924, g: 0.9059184, b: 1, a: 1}
+    - GlobalIllumination: {r: 0.064236775, g: 0.2735849, b: 0.042586334, a: 1}
+    - _ColorA: {r: 0.019223915, g: 0.03923659, b: 0.4528302, a: 1}
+    - _ColorB: {r: 0.40557134, g: 0.9245283, b: 0.8961064, a: 1}
+    - _ColorC: {r: 1, g: 1, b: 1, a: 1}
+    - _CustomLightColor: {r: 1, g: 0, b: 1, a: 1}
+    - _GlobalIllumination: {r: 0.109803915, g: 0.22054595, b: 0.41568628, a: 1}
+    - _LightColor: {r: 0.5283019, g: 0.049085017, b: 0.027411893, a: 1}
+    - _SpecularLight: {r: 0.6, g: 0.8, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
