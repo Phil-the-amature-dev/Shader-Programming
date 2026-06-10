@@ -5,16 +5,23 @@ public class BuildPillarMesh : MonoBehaviour
     MeshBuilder builder;
     
     
-    [SerializeField] private float sectionHeight = 1;
-    [SerializeField] private float sectionLength = 1;
-    [SerializeField] private float sectionWidth = 1;
+    
     [SerializeField] private float rowCount = 1;
-    
-    [SerializeField] private Vector3 rowOffstep = Vector3.right; 
 
-    
+    [SerializeField] private Vector2 heightRange;
+    [SerializeField] private Vector2 lengthRange;
+    [SerializeField] private Vector2 widthRange;
 
-    
+    [SerializeField] private Vector3 rowOffstep = Vector3.right;
+    [SerializeField] private bool horizontalPillar = false;
+
+    private float sectionHeight = 1;
+    private float sectionLength = 1;
+    private float sectionWidth = 1;
+
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -41,9 +48,14 @@ public class BuildPillarMesh : MonoBehaviour
         int length = 0;
         for (int i = 0; i <= rowCount; i++)
         {
+            sectionHeight = Random.Range(heightRange.x, heightRange.y);
+            sectionLength = Random.Range(lengthRange.x, lengthRange.y);
+            sectionWidth = Random.Range(widthRange.x, widthRange.y);
+
+
             //-----------------------VERTECIES--------------------
             //bottom Vertecies
-           
+
             int v1 = builder.AddVertex(rootPosition + new Vector3(sectionLength, 0, sectionWidth), new Vector2(0, 0));
             int v1_2 = builder.AddVertex(rootPosition + new Vector3(sectionLength, 0, sectionWidth), new Vector2(0, 0));
             int v1_3 = builder.AddVertex(rootPosition + new Vector3(sectionLength, 0, sectionWidth), new Vector2(1, 0)); // _2 = duplicate
@@ -112,6 +124,11 @@ public class BuildPillarMesh : MonoBehaviour
             builder.AddTriangle(v9_3, v8_2, v11_3);
             builder.AddTriangle(v11_3, v5_3, v9_3);
             
+
+            if (horizontalPillar)
+            {
+                rowOffstep.y = sectionHeight;
+            }
             rootPosition += rowOffstep;
             length++;
         }

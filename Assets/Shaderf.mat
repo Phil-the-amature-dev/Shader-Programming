@@ -37,13 +37,13 @@ Material:
     - _LightColorStrength: 0.35
     - _MaterialSmoothness: 256
     - _ReflectionColorStrength: 4
-    - _SpecularLightStrength: 0.5
+    - _SpecularLightStrength: 2
     - _TextureBreathingSpeed: 2
     - _TextureBreathingStrength: 1
     - _TextureWaveSpeed: 0.2
     - _TextureWaveStrength: 0.2
     - _Transparency: 0.8
-    - _VectorDisplacementModifier: -70
+    - _VectorDisplacementModifier: -50
     - _WaveLength: 0.05
     m_Colors:
     - GlobalIllumination: {r: 0.064236775, g: 0.2735849, b: 0.042586334, a: 1}
@@ -53,6 +53,6 @@ Material:
     - _CustomLightColor: {r: 1, g: 0, b: 1, a: 1}
     - _GlobalIllumination: {r: 0.15667489, g: 0.32123575, b: 0.6150943, a: 1}
     - _LightColor: {r: 0.5283019, g: 0.049085017, b: 0.027411893, a: 1}
-    - _SpecularLight: {r: 0.6, g: 0.8, b: 1, a: 1}
+    - _SpecularLight: {r: 0.4818886, g: 0.8584906, b: 0.77254015, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

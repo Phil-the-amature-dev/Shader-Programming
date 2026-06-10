@@ -121,7 +121,8 @@ Shader "Unlit/Shader1"
                 
                 
                 toCameraVector = normalize(_WorldSpaceCameraPos - i.worldPos.xyz);;
-                reflectionStrength = saturate(pow(dot(toCameraVector, normalize(_WorldSpaceLightPos0)), _MaterialSmoothness));
+                float3 halfVector = normalize(normalize(_WorldSpaceLightPos0.xyz) + toCameraVector);
+                reflectionStrength = saturate(pow(saturate(dot(normalize(i.normal.xyz), halfVector)), _MaterialSmoothness));
                 
                 
                 float slant = float(fmod(((i.uv.x + i.uv.y) + (sin(_Time.y) * _TextureWaveStrength)),_WaveLength)); // the higher, the more to the right
