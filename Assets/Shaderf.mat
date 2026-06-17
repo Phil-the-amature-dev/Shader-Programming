@@ -43,7 +43,7 @@ Material:
     - _TextureWaveSpeed: 0.2
     - _TextureWaveStrength: 0.2
     - _Transparency: 0.8
-    - _VectorDisplacementModifier: -50
+    - _VectorDisplacementModifier: -100
     - _WaveLength: 0.05
     m_Colors:
     - GlobalIllumination: {r: 0.064236775, g: 0.2735849, b: 0.042586334, a: 1}
