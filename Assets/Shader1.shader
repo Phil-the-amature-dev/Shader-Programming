@@ -57,6 +57,7 @@ Shader "Unlit/Shader1"
             float4 _HeightMap_ST;
             float _VectorDisplacementModifier;
             float _TextureWaveSpeed;
+
             v2f vert (appdata v)
             {
                 v2f o;
@@ -79,10 +80,10 @@ Shader "Unlit/Shader1"
                 o.vertex = UnityObjectToClipPos(v.vertex); 
                 
                 float4 brightness;
-                float2 uvDisplacement = v.uv + float2(_Time.y * _TextureWaveSpeed,0);
+                float2 uvDisplacement = v.uv; // v.uv + float2(_Time.y * _TextureWaveSpeed,0);
                 
                 v.normal = float4(cross(xVertex,yVertex),v.normal.z ); // cross product of xVertex & yVertex
-                o.normal = normalize(mul(v.normal, UNITY_MATRIX_M)); // calculate world space normal
+                o.normal = normalize(mul(UNITY_MATRIX_M, v.normal)); // calculate world space normal
                 
                 
                 brightness = tex2Dlod(_HeightMap, float4(uvDisplacement,0,1));
@@ -106,8 +107,9 @@ Shader "Unlit/Shader1"
             float _SpecularLightStrength;
             float _LightColorStrength;
             float _MaterialSmoothness;
+
+
             fixed4 frag (v2f i) : SV_Target
-            
             {
                 
                 
@@ -120,7 +122,7 @@ Shader "Unlit/Shader1"
                 diffuseLight = saturate(dot((i.normal),normalize(_WorldSpaceLightPos0)));
                 
                 
-                toCameraVector = normalize(_WorldSpaceCameraPos - i.worldPos.xyz);;
+                toCameraVector = normalize(_WorldSpaceCameraPos - i.worldPos.xyz);
                 float3 halfVector = normalize(normalize(_WorldSpaceLightPos0.xyz) + toCameraVector);
                 reflectionStrength = saturate(pow(saturate(dot(normalize(i.normal.xyz), halfVector)), _MaterialSmoothness));
                 
@@ -130,12 +132,14 @@ Shader "Unlit/Shader1"
                 returnColor += float4(lerp(_ColorA,_ColorB,slant * sin(_Time.y) * _TextureBreathingStrength)); // Albedo
                 returnColor += (diffuseLight * _CustomLightColor * _LightColorStrength); // light
                 returnColor += _GlobalIllumination * _GlobalIlluminationStrength; // global illumination
-                returnColor += saturate((_SpecularLight * reflectionStrength * diffuseLight * _SpecularLightStrength)); //Specular light
+                returnColor += saturate((_SpecularLight * reflectionStrength
+                    * diffuseLight * _SpecularLightStrength)); //Specular light
 
                 returnColor.w = _Transparency;
                                 
                 
                 return saturate(returnColor);
+                // return float4(i.normal.xyz,1);
             }
             ENDCG
         }
