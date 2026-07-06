@@ -62,19 +62,23 @@ Shader "Unlit/Shader1"
             {
                 v2f o;
                 //sample neighbouring vertecies
-                //DOES NOT USED TIME RLEVANT COORDINATES WHEN CALCULATING NORMALS
                 float2 uvDisplacement = v.uv + float2(_Time.y * _TextureWaveSpeed,0); // Time updated UV Coordinate
                 float4 heightLeft = tex2Dlod(_HeightMap, float4(uvDisplacement.x-0.1,uvDisplacement.y,0,1));
+                heightLeft.y *= _VectorDisplacementModifier;
                 float3 vertexLeft = float3(-0.1,heightLeft.x,0); //left sample
 
                 float4 heightRight = tex2Dlod(_HeightMap, float4(uvDisplacement.x+0.1,uvDisplacement.y,0,1));
+                heightRight.y *= _VectorDisplacementModifier;
                 float3 vertexRight = float3(0.1,heightRight.x,0); //right sample
 
                 float4 heightUp = tex2Dlod(_HeightMap, float4(uvDisplacement.x,uvDisplacement.y+0.1,0,1));
+                heightUp.y *= _VectorDisplacementModifier;
                 float3 vertexUp = float3(0,heightUp.x,0.1); //up sample
 
                 float4 heightDown = tex2Dlod(_HeightMap, float4(uvDisplacement.x,uvDisplacement.y-0.1,0,1));
+                heightDown.y *= _VectorDisplacementModifier;
                 float3 vertexDown = float3(0,heightDown.x,-0.1); //lower sample
+
 
                 float3 xVertex = float3(vertexLeft - vertexRight);
                 float3 yVertex = float3(vertexUp - vertexDown);
@@ -119,14 +123,15 @@ Shader "Unlit/Shader1"
                 fixed4 returnColor = float4(0,0,0,1);
                 float diffuseLight;
                 float3 toCameraVector;
-                float reflectionStrength;  
+                float reflectionStrength; 
+                float4 normal = normalize(i.normal);
                 
-                diffuseLight = saturate(dot((i.normal),normalize(_WorldSpaceLightPos0)));
+                diffuseLight = saturate(dot((normal),normalize(_WorldSpaceLightPos0)));
                 
                 
                 toCameraVector = normalize(_WorldSpaceCameraPos - i.worldPos.xyz);
                 float3 halfVector = normalize(normalize(_WorldSpaceLightPos0.xyz) + toCameraVector);
-                reflectionStrength = saturate(pow(saturate(dot(normalize(i.normal.xyz), halfVector)), _MaterialSmoothness));
+                reflectionStrength = saturate(pow(saturate(dot(normalize(normal.xyz), halfVector)), _MaterialSmoothness));
                 
                 
                 float slant = float(fmod(((i.uv.x + i.uv.y) + (sin(_Time.y) * _TextureWaveStrength)),_WaveLength)); // the higher, the more to the right

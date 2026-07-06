@@ -39,11 +39,11 @@ Material:
     - _ReflectionColorStrength: 4
     - _SpecularLightStrength: 2
     - _TextureBreathingSpeed: 2
-    - _TextureBreathingStrength: 1
+    - _TextureBreathingStrength: 3
     - _TextureWaveSpeed: 0.15
-    - _TextureWaveStrength: 0.2
+    - _TextureWaveStrength: 0.4
     - _Transparency: 0.8
-    - _VectorDisplacementModifier: 0.5
+    - _VectorDisplacementModifier: 0.4
     - _WaveLength: 0.05
     m_Colors:
     - GlobalIllumination: {r: 0.064236775, g: 0.2735849, b: 0.042586334, a: 1}
