@@ -59,7 +59,7 @@ public class TextureCreator : MonoBehaviour {
 			float u = (float)x / (width - 1);
             float v = (float)y / (height - 1);
 
-			cols[index] = CalculatePixelColor(u, v, pattern); //calculates evry pixel on texture
+			cols[index] = CalculatePixelColor(u, v, pattern); 
 		}
 	}
 
@@ -84,12 +84,12 @@ public class TextureCreator : MonoBehaviour {
         u = xRot + 0.5f;
         v = yRot + 0.5f;
 
-        // Which cell (column, row) does this pixel fall into?
-        int cellX = Mathf.FloorToInt(u * squaresPerSide);
-        int cellY = Mathf.FloorToInt(v * squaresPerSide);
 
-        // Even sum -> one color, odd sum -> the other.
-        bool isEven = (cellX + cellY) % 2 == 0;
+        int squareX = Mathf.FloorToInt(u * squaresPerSide);
+        int squareY = Mathf.FloorToInt(v * squaresPerSide);
+
+        
+        bool isEven = (squareX + squareY) % 2 == 0;
 
 		return isEven ? colorA : colorB;
     }
