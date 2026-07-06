@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CustomRenderTexture_PatternShader
-  m_Shader: {fileID: 4800000, guid: c8c7242185d6fab46a2b29d1b3ed745d, type: 3}
+  m_Name: Unlit_PatternShader
+  m_Shader: {fileID: 4800000, guid: cc8f9d0c0dee9344a8e8f953c4a4a128, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -27,6 +27,6 @@ Material:
     m_Floats: []
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Direction: {r: 0, g: 0, b: 0, a: 0}
+    - _Direction: {r: 0.42, g: 0.2, b: 4.98, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

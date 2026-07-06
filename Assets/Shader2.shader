@@ -62,33 +62,35 @@ Shader "Unlit/Shader1"
             {
                 v2f o;
                 //sample neighbouring vertecies
-                float4 heightLeft = tex2Dlod(_HeightMap, float4(v.uv.x-0.1,v.uv.y,0,1));
-                float3 vertexLeft = float3(-0.1,heightLeft.x,0);
+                //DOES NOT USED TIME RLEVANT COORDINATES WHEN CALCULATING NORMALS
+                float2 uvDisplacement = v.uv + float2(_Time.y * _TextureWaveSpeed,0); // Time updated UV Coordinate
+                float4 heightLeft = tex2Dlod(_HeightMap, float4(uvDisplacement.x-0.1,uvDisplacement.y,0,1));
+                float3 vertexLeft = float3(-0.1,heightLeft.x,0); //left sample
 
-                float4 heightRight = tex2Dlod(_HeightMap, float4(v.uv.x+0.1,v.uv.y,0,1));
-                float3 vertexRight = float3(0.1,heightRight.x,0);
+                float4 heightRight = tex2Dlod(_HeightMap, float4(uvDisplacement.x+0.1,uvDisplacement.y,0,1));
+                float3 vertexRight = float3(0.1,heightRight.x,0); //right sample
 
-                float4 heightUp = tex2Dlod(_HeightMap, float4(v.uv.x,v.uv.y+0.1,0,1));
-                float3 vertexUp = float3(0,heightUp.x,0.1);
+                float4 heightUp = tex2Dlod(_HeightMap, float4(uvDisplacement.x,uvDisplacement.y+0.1,0,1));
+                float3 vertexUp = float3(0,heightUp.x,0.1); //up sample
 
-                float4 heightDown = tex2Dlod(_HeightMap, float4(v.uv.x,v.uv.y-0.1,0,1));
-                float3 vertexDown = float3(0,heightDown.x,-0.1);
+                float4 heightDown = tex2Dlod(_HeightMap, float4(uvDisplacement.x,uvDisplacement.y-0.1,0,1));
+                float3 vertexDown = float3(0,heightDown.x,-0.1); //lower sample
 
                 float3 xVertex = float3(vertexLeft - vertexRight);
                 float3 yVertex = float3(vertexUp - vertexDown);
-
-                o.vertex = UnityObjectToClipPos(v.vertex); 
                 
                 float4 brightness;
-                float2 uvDisplacement = v.uv; // v.uv + float2(_Time.y * _TextureWaveSpeed,0);
-                
+                brightness = tex2Dlod(_HeightMap, float4(uvDisplacement,0,1));
+                v.vertex.y += brightness.x * _VectorDisplacementModifier;
+                o.vertex = UnityObjectToClipPos(v.vertex); 
+
+
                 v.normal = float4(cross(xVertex,yVertex),v.normal.z ); // cross product of xVertex & yVertex
                 o.normal = normalize(mul(UNITY_MATRIX_M, v.normal)); // calculate world space normal
                 
                 
-                brightness = tex2Dlod(_HeightMap, float4(uvDisplacement,0,1));
-                o.vertex.y += brightness.x * _VectorDisplacementModifier;
-                o.worldPos = mul(unity_ObjectToWorld, o.vertex); // vertex to world space
+               
+                o.worldPos = mul(unity_ObjectToWorld, o.vertex); // vertex to world space 
                 o.uv = TRANSFORM_TEX(v.uv, _HeightMap);
 
                 return o;
@@ -117,7 +119,7 @@ Shader "Unlit/Shader1"
                 fixed4 returnColor = float4(0,0,0,1);
                 float diffuseLight;
                 float3 toCameraVector;
-                float reflectionStrength;
+                float reflectionStrength;  
                 
                 diffuseLight = saturate(dot((i.normal),normalize(_WorldSpaceLightPos0)));
                 

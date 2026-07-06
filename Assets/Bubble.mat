@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader2
-  m_Shader: {fileID: 4800000, guid: 4dc1fec87d16bd243b778b8ef42536b0, type: 3}
+  m_Name: Bubble
+  m_Shader: {fileID: 4800000, guid: a6f870911ed62df42a02db49485821f4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -28,9 +28,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _AlbedoStrength: 1.06
+    - _LightColorStrength: 2.72
+    - _RimLightStrenght: 1.94
+    - _Transperency: 0.8
     m_Colors:
-    - _Color: {r: 0.4481132, g: 0.93798053, b: 1, a: 1}
-    - _Direction: {r: 5.76, g: 3.18, b: 0, a: 0}
+    - Albedo: {r: 1, g: 0, b: 0, a: 1}
+    - LightColor: {r: 1, g: 0, b: 0, a: 1}
+    - _Albedo: {r: 0, g: 0.059925556, b: 1, a: 1}
+    - _AmbientColor: {r: 0.09999997, g: 0.09999997, b: 0.14999998, a: 1}
+    - _LightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimLightColor: {r: 1, g: 0.07075471, b: 0.69004846, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
